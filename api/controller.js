@@ -32,7 +32,7 @@ module.exports = {
     },
 
     checkSdt: (req, res) => {
-        const sdt = req.params.sdt;
+        const sdt = req.body.SoDienThoai;
         checkSdt(sdt, (err, results) => {
             if (err) {
                 console.log(err);
