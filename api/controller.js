@@ -3,7 +3,8 @@ const {
     getUserBySdt,
     getUserById,
     updateUser,
-    checkSdt
+    checkSdt,
+    updatePassword
 } = require("./service.js");
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
@@ -135,12 +136,44 @@ module.exports = {
         updateUser(body, (err, results) => {
             if (err) {
                 console.log(err);
-                return;
+                return res.json({
+                    success: 0,
+                    message: "Có lỗi xảy ra"
+                });
             }
             return res.json({
                 success: 1,
                 message: "Cập nhật thành công"
             });
+        });
+    },
+
+    updatePassword: (req, res) => {
+        const body = req.body;
+
+        if (body.Password != null) {
+            const salt = genSaltSync(10);
+            body.Password = hashSync(body.Password, salt);
+        }
+        updatePassword(body, (err, results) => {
+            if (err) {
+                console.log(err);
+                return res.json({
+                    success: 0,
+                    message: "Có lỗi xảy ra"
+                });
+            }
+            if(results){
+                return res.json({
+                    success: 1,
+                    message: "Cập nhật thành công"
+                });
+            }else{
+                return res.json({
+                    success: 0,
+                    message: "Cập nhật không thành công"
+                });
+            }
         });
     },
 };

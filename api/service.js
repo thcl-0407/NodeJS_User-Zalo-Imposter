@@ -73,5 +73,22 @@ module.exports = {
                     return callBack(null, results.recordset[0]);
                 }
             );
+    },
+
+    updatePassword: async (data, callBack) =>{
+        var sdt = data.SoDienThoai;
+        var pass = data.Password;
+
+        await pool.request()
+            .input('SoDienThoai', mssql.sql.VarChar, sdt)
+            .input('Password', mssql.sql.VarChar, pass)
+            .query('UPDATE NguoiDung set Password = @Password WHERE MaNguoiDung = (SELECT MaNguoiDung FROM NguoiDung WHERE SoDienThoai = @SoDienThoai)',
+                (error, results, fields) => {
+                    if (error) {
+                        callBack(error);
+                    }
+                    return callBack(null, results);
+                }
+            );
     }
 };

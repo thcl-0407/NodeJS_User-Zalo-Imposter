@@ -13,7 +13,8 @@ const {
   getUserBySdt,
   getUserById,
   updateUsers,
-  checkSdt
+  checkSdt,
+  updatePassword
 } = require("./controller.js");
 
 router.post("/", createUser); //http://localhost:3000/api truyền vào 1 json để create
@@ -22,6 +23,7 @@ router.get("/id=:id", checkToken, getUserById);  //http://localhost:3000/api/sdt
 router.post("/login", login);   //http://localhost:3000/api/login
 router.patch("/", checkToken, updateUsers); //http://localhost:3000/api truyền vào 1 json update
 router.post("/checksdt", checkSdt);
+router.patch("/updatepass", checkToken, updatePassword);
 
 
 module.exports = router;
