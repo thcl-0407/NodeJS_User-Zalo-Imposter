@@ -163,7 +163,8 @@ module.exports = {
                     message: "Có lỗi xảy ra"
                 });
             }
-            if(results){
+
+            if(results.rowsAffected[0] != 0){
                 return res.json({
                     success: 1,
                     message: "Cập nhật thành công"
