@@ -60,6 +60,14 @@ module.exports = {
             if (err) {
                 console.log(err);
             }
+
+            if(results.Status == 0){
+                return res.json({
+                    success: 2,
+                    data: "Tài khoản của bạn đã bị khoá"
+                });
+            }
+
             if (!results) {
                 return res.json({
                     success: 0,
